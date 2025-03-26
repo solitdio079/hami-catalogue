@@ -50,29 +50,11 @@ router.post("/", upload.single('image'), checkSchema(categoryValidator), async(r
     }
 })
 
-// get category
-router.get("/", async (req, res) => {
-    const { cursor, q,limit } = req.query 
-    const query = {}
-    // for infinity scroll implementations
-    if (cursor) {
-        query._id = {$gt: cursor}
-    }
-    // for search queries
-    if (q) {
-        query.name = {$regex: q}
-    }
 
-    try {
-        const result = await Category.find(query, null, { limit: limit ? Number(limit) : 0 })
-        return res.send(result)
-    } catch (error) {
-        return res.send({error: error.message})
-    }
-})
 
 // update category with image
 router.put("/:id", upload.single("image"), checkSchema(categoryValidator), async (req, res) => {
+    const {id} = req.params
   // check if category exists
   const oldCategory = await Category.findById(id)
   if (!oldCategory) return res.send({ error: 'Category does not exist!' })
@@ -98,8 +80,9 @@ router.put("/:id", upload.single("image"), checkSchema(categoryValidator), async
   }
 })
 router.use(express.json())
-// upload ithout image
+// upload without image
 router.patch("/:id", checkSchema(categoryValidator), async (req, res) => {
+    const {id} = req.params 
   // check if category exists
   const oldCategory = await Category.findById(id)
   if (!oldCategory) return res.send({ error: 'Category does not exist!' })
@@ -124,7 +107,26 @@ router.patch("/:id", checkSchema(categoryValidator), async (req, res) => {
   }
 })
 
-// update 
+// get category
+router.get("/", async (req, res) => {
+    const { cursor, q,limit } = req.query 
+    const query = {}
+    // for infinity scroll implementations
+    if (cursor) {
+        query._id = {$gt: cursor}
+    }
+    // for search queries
+    if (q) {
+        query.name = {$regex: q}
+    }
+
+    try {
+        const result = await Category.find(query, null, { limit: limit ? Number(limit) : 0 })
+        return res.send(result)
+    } catch (error) {
+        return res.send({error: error.message})
+    }
+})
 
 
 // Delete category
