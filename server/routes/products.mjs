@@ -100,7 +100,7 @@ router.patch("/:id", checkSchema(productValidator), async (req, res) => {
 })
 // get products
 router.get("/", async (req, res) => {
-    const { cursor, q, limit } = req.query
+    const { cursor, q, limit, category } = req.query
     const query = {}
     // for infinity scroll implementation
     if (cursor) {
@@ -109,6 +109,10 @@ router.get("/", async (req, res) => {
     // for search queries
     if (q) {
         query.name = {$regex: q}
+    }
+    // for selecting according to category
+    if (category) {
+        query.category = category
     }
 
     try {
