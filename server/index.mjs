@@ -1,7 +1,6 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import 'dotenv/config'
-
 import passport from 'passport'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
@@ -10,10 +9,9 @@ import cors from 'cors'
 // Routers
 import authRouter from './routes/auth.mjs'
 import userRouter from './routes/users.mjs'
-import postRouter from './routes/posts.mjs'
 
 const corsOptions = {
-  origin: ['http://localhost:5173', 'https://www.bysolitdio.net'],
+  origin: ['http://localhost:5173'],
 
   //credentials: true,
   optionsSuccessStatus: 200,
@@ -48,7 +46,6 @@ app.use(passport.session())
 app.use(express.static('public'))
 app.use('/auth', authRouter)
 app.use('/users', userRouter)
-app.use('/posts', postRouter)
 
 const port = process.env.PORT || 5500
 
