@@ -123,6 +123,20 @@ router.get("/", async (req, res) => {
     }
 })
 
+// get one product
+router.get("/:id", async (req, res) => {
+    const { id } = req.params 
+    
+    // get the product
+    try {
+        const result = await Products.findById(id)
+        if(!result) return res.send({error: `Product with ID: ${id} do not exist`})
+        return res.send(result)
+        
+    } catch (error) {
+        return {error: error.message}
+    }
+})
 // delete products
 router.delete("/:id", async (req, res) => {
     const { id } = req.params 

@@ -128,6 +128,22 @@ router.get("/", async (req, res) => {
     }
 })
 
+// get one category
+router.get("/:id", async (req, res) => {
+  // get one category
+  const { id } = req.params
+
+  // get the category
+  try {
+    const result = await Category.findById(id)
+    if(!result) return res.send({error: `Category with ID: ${id} does not exist!`})
+    return res.send(result)
+    
+  } catch (error) {
+    return res.send({error: error.message})
+  }
+})
+
 
 // Delete category
 router.delete("/:id", async (req, res) => {
