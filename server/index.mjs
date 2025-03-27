@@ -9,10 +9,11 @@ import cors from 'cors'
 // Routers
 import authRouter from './routes/auth.mjs'
 import userRouter from './routes/users.mjs'
+import categoryRouter from './routes/category.mjs'
+import productsRouter from './routes/products.mjs'
 
 const corsOptions = {
   origin: ['http://localhost:5173'],
-
   //credentials: true,
   optionsSuccessStatus: 200,
   credentials: true,
@@ -46,6 +47,8 @@ app.use(passport.session())
 app.use(express.static('public'))
 app.use('/auth', authRouter)
 app.use('/users', userRouter)
+app.use('/category', categoryRouter)
+app.use('/products', productsRouter)
 
 const port = process.env.PORT || 5500
 
