@@ -1,7 +1,7 @@
 import Products from "../models/products.mjs";
 import path from 'node:path'
 import fs from 'node:fs'
-import express, { Router } from express
+import express, { Router } from 'express'
 import multer from "multer";
 import { validationResult, matchedData, checkSchema } from "express-validator";
 import { productValidator } from "../validators/productValidator.mjs";
