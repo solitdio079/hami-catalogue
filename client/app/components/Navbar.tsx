@@ -1,7 +1,10 @@
-import { Link } from 'react-router'
+import { Link, NavLink } from 'react-router'
 import logo from './logo.png'
-import {FaBars} from 'react-icons/fa6'
+import { FaBars } from 'react-icons/fa6'
+import { useContext } from 'react'
+import { UserContext } from '~/utils/context'
 export default function Navbar() {
+  const user = useContext(UserContext)
     return (
       <>
         <div className="navbar shadow-sm">
@@ -19,49 +22,165 @@ export default function Navbar() {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <a>Accueil</a>
+                  <NavLink
+                    className={({ isActive, isPending }) =>
+                      isActive
+                        ? 'bg-primary text-white'
+                        : isPending
+                        ? 'bg-secondary text-white'
+                        : ''
+                    }
+                    to={'/'}
+                  >
+                    Accueil
+                  </NavLink>
                 </li>
                 <li>
-                  <a>Produits</a>
-                  <ul className="p-2">
-                    <li>
-                      <a>Porte</a>
-                    </li>
-                    <li>
-                      <a>Fournitures</a>
-                    </li>
-                  </ul>
+                  <NavLink
+                    className={({ isActive, isPending }) =>
+                      isActive
+                        ? 'bg-primary text-white'
+                        : isPending
+                        ? 'bg-secondary text-white'
+                        : ''
+                    }
+                    to={'/categoriesList'}
+                  >
+                    Produits
+                  </NavLink>
                 </li>
                 <li>
-                  <Link to={'/admin'}>Admin</Link>
+                  <li>
+                    {user ? (
+                      <NavLink
+                        className={({ isActive, isPending }) =>
+                          isActive
+                            ? 'bg-primary text-white'
+                            : isPending
+                            ? 'bg-secondary text-white'
+                            : ''
+                        }
+                        to={'/logout'}
+                      >
+                        Logout
+                      </NavLink>
+                    ) : (
+                      ''
+                    )}
+                  </li>
+                </li>
+                <li>
+                  {user ? (
+                    <NavLink
+                      className={({ isActive, isPending }) =>
+                        isActive
+                          ? 'bg-primary text-white'
+                          : isPending
+                          ? 'bg-secondary text-white'
+                          : ''
+                      }
+                      to={'/admin'}
+                    >
+                      Admin
+                    </NavLink>
+                  ) : (
+                    <NavLink
+                      className={({ isActive, isPending }) =>
+                        isActive
+                          ? 'bg-primary text-white'
+                          : isPending
+                          ? 'bg-secondary text-white'
+                          : ''
+                      }
+                      to={'/login'}
+                    >
+                      Login
+                    </NavLink>
+                  )}
                 </li>
               </ul>
             </div>
-            <a className="btn btn-ghost text-xl">
+            <Link to={'/'} className="btn btn-ghost text-xl">
               {' '}
               <img src={logo} width={80} />{' '}
-            </a>
+            </Link>
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">
               <li>
-                <a>Accueil</a>
+                <NavLink
+                  className={({ isActive, isPending }) =>
+                    isActive
+                      ? 'bg-primary text-white'
+                      : isPending
+                      ? 'bg-secondary text-white'
+                      : ''
+                  }
+                  to={'/'}
+                >
+                  Accueil
+                </NavLink>
               </li>
               <li>
-                <details>
-                  <summary>Produits</summary>
-                  <ul className="p-2">
-                    <li>
-                      <a>Portes</a>
-                    </li>
-                    <li>
-                      <a>Fauteuils</a>
-                    </li>
-                  </ul>
-                </details>
+                <NavLink
+                  className={({ isActive, isPending }) =>
+                    isActive
+                      ? 'bg-primary text-white'
+                      : isPending
+                      ? 'bg-secondary text-white'
+                      : ''
+                  }
+                  to={'/categoriesList'}
+                >
+                  Produits
+                </NavLink>
               </li>
               <li>
-                <Link to={'/admin'}>Admin</Link>
+                {user ? (
+                  <NavLink
+                    className={({ isActive, isPending }) =>
+                      isActive
+                        ? 'bg-primary text-white'
+                        : isPending
+                        ? 'bg-secondary text-white'
+                        : ''
+                    }
+                    to={'/logout'}
+                  >
+                    Logout
+                  </NavLink>
+                ) : (
+                  ''
+                )}
+              </li>
+              <li>
+                {user ? (
+                  <NavLink
+                    className={({ isActive, isPending }) =>
+                      isActive
+                        ? 'bg-primary text-white'
+                        : isPending
+                        ? 'bg-secondary text-white'
+                        : ''
+                    }
+                    to={'/admin'}
+                  >
+                    Admin
+                  </NavLink>
+                ) : (
+                  <NavLink
+                    className={({ isActive, isPending }) =>
+                      isActive
+                        ? 'bg-primary text-white'
+                        : isPending
+                        ? 'bg-secondary text-white'
+                        : ''
+                    }
+                    to={'/login'}
+                  >
+                    Login
+                  </NavLink>
+                )}
               </li>
             </ul>
           </div>

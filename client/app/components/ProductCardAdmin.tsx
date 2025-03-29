@@ -12,7 +12,7 @@ export default function ProductCardAdmin({ item }) {
   const product = item
   return (
     <>
-      <div className="card bg-base-100 w-96 shadow-sm">
+      <div className="card bg-base-100 w-96 shadow-sm m-5">
         <figure>
           <Swiper
             spaceBetween={10}
