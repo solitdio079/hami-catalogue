@@ -10,9 +10,7 @@ export default function CategoryRoot() {
           <li>
             <NavLink to={'/admin/category/all'}>All Categories</NavLink>
           </li>
-          <li>
-            <NavLink to={'/admin/category/edit'}>Edit Category</NavLink>
-          </li>
+        
             </ul>
             
             <Outlet/>

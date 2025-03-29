@@ -9,12 +9,12 @@ export default function AllCategories() {
 
 
   return (
-    <>
+    <div className='p-10'>
       <InfiniteEntity
         loaderRoute={'/loaders/categories'}
         fetchMoreURL={serverUrl + '/category/'}
         UnitEntity={CategoryCardAdmin}
       />
-    </>
+    </div>
   )
 }

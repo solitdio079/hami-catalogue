@@ -67,7 +67,8 @@ router.put("/:id", upload.single("image"), checkSchema(categoryValidator), async
   // Retrieve the validated data
   const data = { ...req.body, ...matchedData(req) }
   // delete old image
-  if(oldCategory.image !== "") fs.unlinkSync(destination + oldCategory.image)
+  //if (oldCategory.image && oldCategory.image !== '')
+    //fs.unlinkSync(destination + oldCategory.image)
   // setting image field
   data.image = req.file.filename
 
