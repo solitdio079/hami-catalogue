@@ -30,7 +30,7 @@ export async function clientAction({ request, params }: Route.ClientActionArgs) 
         })
         const response = await req.json()
         if (response.error) return response
-        return {msg: `Product with ID: ${response._id}  created`}
+        return {msg: `Category with ID: ${response._id}  updated`}
         
     } catch (error) {
         return {error}

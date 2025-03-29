@@ -1,16 +1,18 @@
 import { useEffect } from "react"
 import { useFetcher } from "react-router"
+import type { Route } from "../+types/root"
 
-export default function CategorySelect() {
+export default function CategorySelect({previous}) {
+     const fetcher = useFetcher()
     useEffect(() => {
         if(!fetcher.data) fetcher.load("/loaders/categories")
-    })
-    const fetcher = useFetcher()
+    },[fetcher.data])
+   
     return (
       <>
         {fetcher.data ? (
-          <select defaultValue="Pick a color" name="category" className="select">
-            {fetcher.data.map((item) => (
+          <select name="category" defaultValue={previous} className="select">
+            {fetcher.data.map((item:any) => (
               <option key={item._id} value={item.name}> {item.name} </option>
             ))}
           </select>

@@ -8,10 +8,10 @@ export default function Dashboard() {
             <a>Profile</a>
           </li>
           <li>
-            <a>Products</a>
+            <NavLink to={"/admin/products/create"}>Products</NavLink>
           </li>
           <li>
-            <NavLink to={"/admin/category/create"}>Categories</NavLink>
+            <NavLink to={"/admin/category/all"}>Categories</NavLink>
           </li>
         </ul>
         <Outlet />

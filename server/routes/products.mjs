@@ -34,7 +34,11 @@ router.post("/", upload.array('images', 4), checkSchema(productValidator),async 
     // Retrieve the validated data
     const data = { ...req.body, ...matchedData(req) }
     // setting images array
-    data.images = req.files.map((item) => { item.filename }) 
+    console.log(req.files)
+    data.images = req.files.map((item) => {
+        console.log(item.filename);
+        return item.filename;
+    }) 
     
     try {
         const newProduct = new Products(data)
@@ -47,28 +51,36 @@ router.post("/", upload.array('images', 4), checkSchema(productValidator),async 
 
 // update with images
 router.put("/:id", upload.array("images", 4), checkSchema(productValidator), async (req, res) => {
-    const {id} = req.params
-    // check if it exists
-    const oldProducts = await Products.findById(id)
-    if (!oldProducts) return res.send({ error: 'Product not found!' })
-    
-    // check the required fields
-    const result = validationResult(req)
-    if (!result.isEmpty()) return res.send({ error: result.array()[0].msg })
+  const { id } = req.params
+  // check if it exists
+  const oldProducts = await Products.findById(id)
+  if (!oldProducts) return res.send({ error: 'Product not found!' })
 
-    // Retrieve the validated data
-    const data = { ...req.body, ...matchedData(req) }
+  // check the required fields
+  const result = validationResult(req)
+  if (!result.isEmpty()) return res.send({ error: result.array()[0].msg })
 
-    // remove old images
-    if(oldProducts.images.length > 0) oldProducts.images.forEach(item => fs.unlinkSync(item))
-    // setting images array
-    data.images = req.files.map((item) => { item.filename }) 
+  // Retrieve the validated data
+  const data = { ...req.body, ...matchedData(req) }
+
+  // remove old images
+  if (oldProducts.images.length > 0) {
     try {
-        await Products.findByIdAndUpdate(id, data)
-        return res.send({oldProducts})
-    } catch (error) {
-        return res.send({error: error.message})
-    }
+      oldProducts.images.forEach((item) => fs.unlinkSync(item))
+    } catch (error) {}
+  }
+  // setting images array
+  console.log(req.files)
+  data.images = req.files.map((item) => {
+    console.log(item.filename)
+    return item.filename
+  })
+  try {
+    await Products.findByIdAndUpdate(id, data)
+    return res.send(oldProducts)
+  } catch (error) {
+    return res.send({ error: error.message })
+  }
 })
 
 
@@ -93,7 +105,7 @@ router.patch("/:id", checkSchema(productValidator), async (req, res) => {
     data.images = oldProducts.images
     try {
         await Products.findByIdAndUpdate(id, data)
-        return res.send({oldProducts})
+        return res.send(oldProducts)
     } catch (error) {
         return res.send({error: error.message})
     }
@@ -147,7 +159,7 @@ router.delete("/:id", async (req, res) => {
     // delete product
     try {
         await Products.findByIdAndDelete(id)
-        return res.send({oldProducts})
+        return res.send(oldProducts)
     } catch (error) {
         return res.send({error: error.message})
     }
