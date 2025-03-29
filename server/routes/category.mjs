@@ -67,8 +67,13 @@ router.put("/:id", upload.single("image"), checkSchema(categoryValidator), async
   // Retrieve the validated data
   const data = { ...req.body, ...matchedData(req) }
   // delete old image
-  //if (oldCategory.image && oldCategory.image !== '')
-    //fs.unlinkSync(destination + oldCategory.image)
+  if (oldCategory.image && oldCategory.image !== '')
+    try {
+       fs.unlinkSync(destination + oldCategory.image)
+    } catch (error) {
+      
+    }
+   
   // setting image field
   data.image = req.file.filename
 
@@ -94,7 +99,7 @@ router.patch("/:id", checkSchema(categoryValidator), async (req, res) => {
   if (!results.isEmpty()) return res.send({ error: results.array()[0].msg })
 
   // Retrieve the validated data
-  const data = matchedData(req) 
+  const data = {...req.body, ...matchedData(req)}
   if (req.body.description === "") data.description = req.body.description 
   // set image to previous image
   data.image = oldCategory.image

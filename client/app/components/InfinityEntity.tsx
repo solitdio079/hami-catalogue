@@ -27,13 +27,13 @@ export default function InfiniteEntity({
   }, [cursor, fetcher.data])
 
   const fetchMoreData = async () => {
-    let completeUrl = fetchMoreURL + `?cursor=${cursor || ''}&limit=${5}`
+    let completeUrl = fetchMoreURL + `?cursor=${cursor || ''}&limit=${10}`
     if (completeUrl.includes('?')) {
-      completeUrl = fetchMoreURL + `&cursor=${cursor || ''}&limit=${5}`
+      completeUrl = fetchMoreURL + `&cursor=${cursor || ''}&limit=${10}`
     }
     try {
       const response = await fetch(
-        fetchMoreURL + `?cursor=${cursor || ''}&limit=${5}`,
+        fetchMoreURL + `?cursor=${cursor || ''}&limit=${10}`,
         {
           method: 'GET',
           credentials: 'include',
@@ -63,7 +63,7 @@ export default function InfiniteEntity({
             </p>
           }
         >
-          <div className="flex flex-col flex-wrap text-white list bg-base-100 w-full rounded-box shadow-md m-5">
+          <div className="flex flex-col lg:flex-row flex-wrap text-white list bg-base-100 w-full rounded-box shadow-md m-5">
             {items.map((item) => (
               <UnitEntity item={item} key={item._id} />
             ))}

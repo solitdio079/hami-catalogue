@@ -9,7 +9,7 @@ export default function AllCategories() {
 
 
   return (
-    <div className='p-10'>
+    <div className='p-10 flex flex-wrap w-full'>
       <InfiniteEntity
         loaderRoute={'/loaders/categories'}
         fetchMoreURL={serverUrl + '/category/'}

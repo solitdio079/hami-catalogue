@@ -7,6 +7,7 @@ export default [
     route('category', './routes/admin/category/categoryRoot.tsx', [
       route('create', './routes/admin/category/create.tsx'),
         route('edit/:id', './routes/admin/category/edit.tsx'),
+        route('delete/:id', './routes/admin/category/delete.tsx'),
       route("all", "./routes/admin/category/allCategories.tsx")
     ]),
   ]),

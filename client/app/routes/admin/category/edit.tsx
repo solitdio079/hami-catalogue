@@ -19,6 +19,7 @@ export async function clientAction({ request, params }: Route.ClientActionArgs) 
           fetchHeader = {'Content-Type': 'application/json'}
           fetchBody = JSON.stringify(Object.fromEntries(formData))
     }
+  console.log(fetchMethod)
     try {
         const req = await fetch(serverUrl + `/category/${id}`, {
             method: fetchMethod,
