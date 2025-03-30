@@ -6,6 +6,10 @@ export default [
     route('login', './routes/login.tsx'),
     route('loaders/categories', './loaders/allCategories.tsx'),
     route('loaders/products', './loaders/allProducts.tsx'),
+    route('loaders/productsList', './loaders/productsList.tsx'),
+    route('categoriesList', './routes/categoriesList.tsx'),
+    route('productsList/:category', './routes/productList.tsx'),
+    route('productSingle/:id', './routes/productSingle.tsx'),
     route('admin', './routes/admin/dashboard.tsx', [
       route('products', './routes/admin/products/productRoot.tsx', [
         route('create', './routes/admin/products/create.tsx'),

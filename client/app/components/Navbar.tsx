@@ -49,7 +49,7 @@ export default function Navbar() {
                     Produits
                   </NavLink>
                 </li>
-                <li>
+                
                   <li>
                     {user ? (
                       <NavLink
@@ -68,7 +68,6 @@ export default function Navbar() {
                       ''
                     )}
                   </li>
-                </li>
                 <li>
                   {user ? (
                     <NavLink
