@@ -35,7 +35,7 @@ router.post("/", upload.array('images', 6), checkSchema(productValidator), async
   // Retrieve the validated data
   const data = { ...req.body, ...matchedData(req) }
   // setting images array
-  console.log(req.files)
+  //console.log(req.files)
   // convert images to webp and store to data.images
   data.images = req.files.map((item) => {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9)
@@ -80,9 +80,13 @@ router.put("/:id", upload.array("images", 4), checkSchema(productValidator), asy
   }
   // setting images array
   console.log(req.files)
+  // convert images to webp and store to data.images
   data.images = req.files.map((item) => {
-    console.log(item.filename)
-    return item.filename
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9)
+    const inputPath = destination + item.filename
+    const outputPath = 'images-' + uniqueSuffix + '.webp'
+    imageConverter(inputPath, destination + outputPath)
+    return outputPath
   })
   try {
     await Products.findByIdAndUpdate(id, data)
