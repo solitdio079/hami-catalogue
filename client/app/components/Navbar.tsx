@@ -1,13 +1,13 @@
 import { Link, NavLink } from 'react-router'
 import logo from './logo.png'
-import { FaBars } from 'react-icons/fa6'
+import { FaBars, FaWhatsapp } from 'react-icons/fa6'
 import { useContext } from 'react'
 import { UserContext } from '~/utils/context'
 export default function Navbar() {
   const user = useContext(UserContext)
     return (
       <>
-        <div className="navbar shadow-sm">
+        <div className="navbar sticky top-0 z-100 bg-base-100 shadow-sm">
           <div className="navbar-start">
             <div className="dropdown">
               <div
@@ -184,7 +184,7 @@ export default function Navbar() {
             </ul>
           </div>
           <div className="navbar-end">
-            <a className="btn">Button</a>
+            <a href='https://wa.me/905364613555' target='_blank' className="btn p-2 mx-5"> <FaWhatsapp className='w-10 h-10 text-green-700'/> </a>
           </div>
         </div>
       </>

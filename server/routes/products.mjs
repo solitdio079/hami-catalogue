@@ -5,6 +5,7 @@ import express, { Router } from 'express'
 import multer from "multer";
 import { validationResult, matchedData, checkSchema } from "express-validator";
 import { productValidator } from "../validators/productValidator.mjs";
+import imageConverter from "../utils/imageConverter.mjs";
 
 // Setting the destination path for product photos
 const root = path.resolve()
@@ -26,27 +27,35 @@ const upload = multer({ storage })
 const router = Router()
 
 // create a product endpoint
-router.post("/", upload.array('images', 4), checkSchema(productValidator),async (req, res) => {
-    // check the required fields
-    const result = validationResult(req)
-    if (!result.isEmpty()) return res.send({ error: result.array()[0].msg })
+router.post("/", upload.array('images', 6), checkSchema(productValidator), async (req, res) => {
+  // check the required fields
+  const result = validationResult(req)
+  if (!result.isEmpty()) return res.send({ error: result.array()[0].msg })
 
-    // Retrieve the validated data
-    const data = { ...req.body, ...matchedData(req) }
-    // setting images array
-    console.log(req.files)
-    data.images = req.files.map((item) => {
-        console.log(item.filename);
-        return item.filename;
-    }) 
-    
-    try {
-        const newProduct = new Products(data)
-        await newProduct.save()
-        return res.send(newProduct)
-    } catch (error) {
-        return res.send({error: error.message})
-    }
+  // Retrieve the validated data
+  const data = { ...req.body, ...matchedData(req) }
+  // setting images array
+  console.log(req.files)
+  // convert images to webp and store to data.images
+  data.images = req.files.map((item) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9)
+    const inputPath = destination + item.filename
+    const outputPath ='images-' + uniqueSuffix + '.webp'
+    imageConverter(inputPath, destination+outputPath)
+    return outputPath
+  })
+  /*data.images = req.files.map((item) => {
+    console.log(item.filename)
+    return item.filename
+  })*/
+
+  try {
+    const newProduct = new Products(data)
+    await newProduct.save()
+    return res.send(newProduct)
+  } catch (error) {
+    return res.send({ error: error.message })
+  }
 })
 
 // update with images

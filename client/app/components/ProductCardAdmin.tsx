@@ -7,7 +7,7 @@ import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 import { serverUrl } from '~/utils/serverUrl'
 import { Form, Link } from 'react-router'
-import { FaPencil, FaX } from 'react-icons/fa6'
+import { FaEye, FaPencil, FaX } from 'react-icons/fa6'
 export default function ProductCardAdmin({ item }) {
   const product = item
   return (
@@ -54,6 +54,13 @@ export default function ProductCardAdmin({ item }) {
               {' '}
               <FaPencil /> Edit{' '}
             </Link>
+            <Link
+                          to={`/productSingle/${product._id}`}
+                          className="btn btn-warning"
+                        >
+                          {' '}
+                          <FaEye />
+                        </Link>
           </div>
         </div>
       </div>

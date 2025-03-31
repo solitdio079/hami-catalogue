@@ -46,6 +46,7 @@ export default function ProductSingle({ loaderData }: Route.ComponentProps) {
           }}
           navigation={true}
           modules={[Autoplay, Pagination, Navigation]}
+          className="-mb-10"
         >
           {product.images.map((image) => (
             <SwiperSlide
@@ -61,19 +62,21 @@ export default function ProductSingle({ loaderData }: Route.ComponentProps) {
           {product.images.map((image) => (
             <img
               key={Math.random() * 10e9}
-              className="max-h-20 lg:max-h-40 m-3 -mt-20 lg:-mt-40 z-50"
+              className="max-h-15 lg:max-h-30 m-3 -mt-20 lg:-mt-40 z-50"
               src={serverUrl + '/' + image}
             />
           ))}
         </div>
-        <div className="card w-full bg-base-100 card-xl shadow-sm">
+        <div className="card w-full p-5 lg:p-5 bg-base-100 card-xl shadow-sm">
           <div className="card-body">
-            <h2 className="card-title"> {product.name} </h2>
+            <h2 className="card-title text-5xl"> {product.name} </h2>
             <p>{product.description}</p>
           </div>
         </div>
-            <div>
-                <div className="mx-5 mt-10 -mb-3 text-2xl font-bold">Produits Similaires</div>
+        <div>
+          <div className="mx-5 mt-10 -mb-3 text-2xl font-bold">
+            Produits Similaires
+          </div>
           <SimilarProducts category={product.category} />
         </div>
       </>

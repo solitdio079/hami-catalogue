@@ -6,11 +6,14 @@ import CategoryCard from '~/components/CategoryCard'
 import type { Route } from './+types/productList'
 import ProductCard from '~/components/ProductCard'
 import { Link } from 'react-router'
+import { useContext } from 'react'
+import { UserContext } from '~/utils/context'
+import ProductCardAdmin from '~/components/ProductCardAdmin'
 
 
 export default function productsList({params}: Route.ComponentProps) {
  const {category} = params
-
+ const user = useContext(UserContext)
   return (
     <div className="flex flex-col w-full">
       <div
@@ -46,7 +49,7 @@ export default function productsList({params}: Route.ComponentProps) {
       <InfiniteEntity
         loaderRoute={`/loaders/productsList/?category=${category}`}
         fetchMoreURL={serverUrl + `/products/?category=${category}`}
-        UnitEntity={ProductCard}
+        UnitEntity={user ? ProductCardAdmin :ProductCard}
       />
     </div>
   )
